@@ -1,6 +1,6 @@
 {
   "name": "squirlsengine2d",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "A Developer SDK to help create good performance animations and interactions in canvas",
   "main": "./package/export.js",
   "scripts": {
