@@ -14,4 +14,3 @@ export const vector = function (p1, p2) {
 };
 export const line = function (p1, p2) {
 };
-//# sourceMappingURL=Functions.js.map

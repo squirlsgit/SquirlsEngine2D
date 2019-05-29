@@ -6,4 +6,3 @@ export class Interactive {
         return false;
     }
 }
-//# sourceMappingURL=Definitions.js.map

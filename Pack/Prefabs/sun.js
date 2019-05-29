@@ -37,4 +37,3 @@ export class Sun extends Sprite {
         this.draw(canvas, this.size);
     }
 }
-//# sourceMappingURL=sun.js.map

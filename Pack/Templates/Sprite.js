@@ -26,4 +26,3 @@ export class Sprite {
 }
 //export class Rayable extends Drawable {
 //}
-//# sourceMappingURL=Sprite.js.map
