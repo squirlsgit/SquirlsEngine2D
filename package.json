@@ -1,11 +1,12 @@
 {
-  "name": "squirlsengine2d",
+  "name": "squirls-2d-engine",
   "version": "0.0.1",
   "description": "A Developer SDK to help create good performance animations and interactions in canvas",
-  "main": "./package/index.js",
+  "main": "./package/export.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc"
+    "build": "tsc",
+    "deploy": "git add --all && git commit -m \"New Version\" && git push && tsc && npm version patch && npm publish"
   },
   "repository": {
     "type": "git",
