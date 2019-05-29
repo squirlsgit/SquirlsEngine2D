@@ -1,0 +1,23 @@
+{
+  "name": "squirlsengine2d",
+  "version": "0.0.1",
+  "description": "A Developer SDK to help create good performance animations and interactions in canvas",
+  "main": "./package/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://squirlsgit:Thesqu1rlnest!@github.com/squirlsgit/SquirlsEngine2D.git"
+  },
+  "author": "NC Squirls <tyeg.jay@gmail.com> (https://profileui.herokuapp.com/)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/squirlsgit/SquirlsEngine2D/issues"
+  },
+  "homepage": "https://github.com/squirlsgit/SquirlsEngine2D#readme",
+  "devDependencies": {
+    "typescript": "^3.5.1"
+  }
+}
