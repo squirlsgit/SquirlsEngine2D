@@ -1,6 +1,8 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "rootDir": "lib",
+
     "baseUrl": "./",
     "outDir": "./package",
     "sourceMap": true,
@@ -13,7 +15,8 @@
     "typeRoots": [
       "node_modules/@types"
     ]
-  }
+  },
+  "include": ["lib/**/*"]
 }
 
 
