@@ -1,5 +1,5 @@
 {
-  "name": "squirls-2d-engine",
+  "name": "squirlsengine2d",
   "version": "0.0.5",
   "description": "A Developer SDK to help create good performance animations and interactions in canvas",
   "main": "./package/export.js",
