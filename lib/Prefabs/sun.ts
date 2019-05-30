@@ -2,7 +2,7 @@
 import { Sprite } from '../Templates/Sprite'; 
 import { Position, Size } from '../Helpers/Functions';
 const sunREF = 'assets/SUN.png'
-export class Sun extends Sprite{
+export class Sun extends Sprite {
   public size: Size;
   public lastPosition: Position;
   public lastSize: Size;
