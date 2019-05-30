@@ -1,8 +1,8 @@
 {
-  "name": "squirlsengine2d",
+  "name": "squirlsengines",
   "version": "0.0.11",
   "description": "A Developer SDK to help create good performance animations and interactions in canvas",
-  "main": "./package/export.js",
+  "main": "./Engines/2D/export.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
@@ -20,5 +20,8 @@
   "homepage": "https://github.com/squirlsgit/SquirlsEngine2D#readme",
   "devDependencies": {
     "typescript": "^3.5.1"
+  },
+  "dependencies": {
+    "canvasworkers": "0.0.9"
   }
 }

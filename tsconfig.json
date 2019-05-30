@@ -12,7 +12,7 @@
     "noImplicitReturns": false,
     "esModuleInterop": true,
     "declaration": true,
-    "outDir": "./Pack",
+    "outDir": "./Engines/2D",
     "moduleResolution": "node"
   },
   "lib": [
