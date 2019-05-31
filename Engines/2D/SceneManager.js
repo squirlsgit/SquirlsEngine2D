@@ -1,15 +1,11 @@
 export class SceneManager {
-   
-    public static instance: SceneManager;
-    public window: HTMLCanvasElement;
-    constructor(canvas: HTMLCanvasElement) {
+    constructor(canvas) {
         this.window = canvas;
     }
-    public static Module(canvas: HTMLCanvasElement) {
+    static Module(canvas) {
         return this.instance || (this.instance = new this(canvas));
     }
-
-    public on(event: string, callback: Listener, recurrance: string | number = null) {
+    on(event, callback, recurrance = null) {
         if (typeof (recurrance) == 'string') {
             switch (recurrance) {
                 case 'once':
@@ -20,77 +16,56 @@ export class SceneManager {
                     break;
             }
         }
-        EventManager.add(this, event, callback, <number>recurrance);
+        EventManager.add(this, event, callback, recurrance);
     }
-    
-    public once(event: string, callback: Listener): boolean {
+    once(event, callback) {
         return EventManager.add(this, event, callback, null);
     }
-    public remove(event: string, callback: Listener): boolean {
+    remove(event, callback) {
         return EventManager.remove(this, event, callback);
     }
-    public emit(event: string, context: any, ...args) {
+    emit(event, context, ...args) {
         return EventManager.emit(this, event, context, args);
     }
-
-       
 }
-
 export class Time {
-    public static id;
-    public static now: Date = null;
-    public static _lastFrame: Date = null;
-    public static _deltaTime: number = 0;
-    public static isTracking: boolean = false;
-    
-    public static get deltaTime(): number{
+    static get deltaTime() {
         Time.track();
         return Time._deltaTime;
     }
-    public static get lastFrame(): Date {
+    static get lastFrame() {
         Time.track();
         return Time._lastFrame;
     }
-
-    public static track() {
+    static track() {
         if (!Time.isTracking) {
             Time.updateTime(new Date());
             Time.isTracking = true;
         }
     }
-    public static updateTime(now) {
+    static updateTime(now) {
         Time.now = now;
         if (Time._lastFrame == null) {
             Time._lastFrame = now;
             Time._deltaTime = 0;
-        } else {
+        }
+        else {
             Time._deltaTime = Time.now.getTime() - Time._lastFrame.getTime();
             Time._lastFrame = Time.now;
         }
-
         Time.id = window.requestAnimationFrame(Time.updateTime);
     }
-
 }
-
-
-
-
-
-export interface Emittance {
-    limit: number;
-    curr: number;
-}
-export type Listener = (context: any, ...args) => void;
-
-
+Time.now = null;
+Time._lastFrame = null;
+Time._deltaTime = 0;
+Time.isTracking = false;
 export class EventManager {
-    public static Events: Map<SceneManager, Map<string, Map<Listener, Emittance>>>; 
-    public static emit(scene: SceneManager, event: string, context: any, ...args): boolean {
+    static emit(scene, event, context, ...args) {
         if (!EventManager.Events.has(scene) || !EventManager.Events.get(scene).has(event)) {
             return false;
         }
-        let listeners: Map<Listener, Emittance> = EventManager.Events.get(scene).get(event);
+        let listeners = EventManager.Events.get(scene).get(event);
         listeners.forEach((stance, callback) => {
             if (stance == null || stance.limit > stance.curr) {
                 callback(context, args);
@@ -102,35 +77,28 @@ export class EventManager {
             EventManager.Events.get(scene).get(event).delete(callback);
         });
         return true;
-        
     }
-
-    public static add(scene: SceneManager, eventname: string, listener: Listener, limit: number = null): boolean{
+    static add(scene, eventname, listener, limit = null) {
         try {
-            let events: Map<string, Map<Listener, Emittance>> = EventManager.Events.get(scene) || (EventManager.Events.set(
-                scene,
-                new Map<string, Map<Listener, Emittance>>()).get(scene)
-            );
-            let event: Map<Listener, Emittance> = events.get(eventname) || (events.set(eventname, new Map<Listener, Emittance>())).get(eventname);
-
+            let events = EventManager.Events.get(scene) || (EventManager.Events.set(scene, new Map()).get(scene));
+            let event = events.get(eventname) || (events.set(eventname, new Map())).get(eventname);
             event.set(listener, (limit ? { limit: limit, curr: 0 } : null));
             return true;
-        } catch (err) {
+        }
+        catch (err) {
             console.error(err);
             return false;
         }
-        
     }
-    public static remove(scene: SceneManager, eventname: string, listener: Listener) : boolean {
+    static remove(scene, eventname, listener) {
         try {
             EventManager.Events.get(scene).get(eventname).delete(listener);
-            EventManager.Events.get(scene).get(eventname).size == 0 ? EventManager.Events.get(scene).delete(eventname): null;
+            EventManager.Events.get(scene).get(eventname).size == 0 ? EventManager.Events.get(scene).delete(eventname) : null;
             return true;
-        } catch (err) {
+        }
+        catch (err) {
             console.error(err);
             return false;
         }
     }
-
 }
-
