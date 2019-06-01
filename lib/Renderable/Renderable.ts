@@ -1,6 +1,8 @@
 
 import * as behaviors from '../Behaviors';
-export class Renderable {
+import { Prefab } from '../Prefabs';
+export class GameObject {
+    public container: Prefab;
     public render() { };
 }
 export class IRender {

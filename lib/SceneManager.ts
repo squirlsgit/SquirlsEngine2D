@@ -1,10 +1,12 @@
 
 import { EventManager } from './EventManager';
 import { Listener } from './Events/Delegates';
+import { GameObject } from './Renderable';
 export default class SceneManager {
    
     public static instance: SceneManager;
     public window: HTMLCanvasElement;
+    public prefabs: Array<GameObject>;
     constructor(canvas: HTMLCanvasElement) {
         this.window = canvas;
     }

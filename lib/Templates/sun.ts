@@ -13,10 +13,10 @@ export class Sun extends Sprite {
   public interact(canvas: HTMLCanvasElement, click: MouseEvent): Position {
     let hitpos = { x: click.clientX / canvas.width, y: click.clientY / canvas.height };;
     if (
-      hitpos.x >= this.startAt.x &&
-      hitpos.x <= this.startAt.x + this.size.width &&
-      hitpos.y >= this.startAt.y &&
-      hitpos.y <= this.startAt.y + this.size.height
+      hitpos.x >= this.position.x &&
+      hitpos.x <= this.position.x + this.size.width &&
+      hitpos.y >= this.position.y &&
+      hitpos.y <= this.position.y + this.size.height
     ) {
       return hitpos;
     } else {
@@ -26,8 +26,8 @@ export class Sun extends Sprite {
   }
 
   setNewPosition(position: Position) {
-    this.lastPosition = { x: this.startAt.x, y: this.startAt.y };
-    this.startAt = position;
+    this.lastPosition = { x: this.position.x, y: this.position.y };
+    this.position = position;
     
   }
   setNewSize(size: Size) {
@@ -40,7 +40,7 @@ export class Sun extends Sprite {
   }
   drawSun(canvas: HTMLCanvasElement) {
     console.log("BOOTING UP THE SUN", this.objectRef);
-    let resetpos: Position = this.lastPosition || this.startAt;
+    let resetpos: Position = this.lastPosition || this.position;
     let resetsize: Size = this.lastSize || this.size;
     this.undraw(canvas, resetpos, resetsize); 
     
