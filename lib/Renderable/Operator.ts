@@ -1,3 +1,6 @@
-export class Operator {
-    public render() {}
+import { GameObject } from './Renderable';
+
+
+export class Operator extends GameObject{
+    
 }

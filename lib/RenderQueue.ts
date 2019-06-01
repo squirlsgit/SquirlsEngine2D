@@ -2,21 +2,34 @@ import * as Objects from './Renderable';
 import SceneManager from './SceneManager';
 import * as datatypes from './Helpers/DataTypes/Simple';
 import { IRender } from './Renderable';
+//import { Prefab } from './Prefabs';
 
+
+export interface queue{
+    stack?: Stack<IRender>;
+    castors?: Stack<Objects.Castor>;
+    operators?: Stack<Objects.Operator>;
+}
 export class RenderQueue {
     public scene: SceneManager = null;
-
-    public queue: { };
+    
+    public queue: queue = {};
     constructor(scene: SceneManager) {
         this.scene = scene;
-        this.queue['stack'] = new Stack<Objects.Sprite>(); 
-        this.queue['castors'] = new Stack<Objects.Castor>();
+        this.queue.stack = new Stack<IRender>(); 
+        this.queue.castors = new Stack<Objects.Castor>();
+        this.queue.operators = new Stack<Objects.Operator>();
+    }
+    public render() {
+        this.queue.stack.render();
+        this.queue.castors.render();
+        this.queue.castors.render();
     }
 }
 
 
 
-export type spell = (gameobject: Objects.Renderable) => void;
+export type spell = (gameobject: Objects.GameObject) => void;
 
 export type cast = (poly: Array<datatypes.Position>, spell) => void;
 

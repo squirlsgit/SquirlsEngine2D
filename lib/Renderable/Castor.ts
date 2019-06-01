@@ -1,3 +1,4 @@
-export class Castor {
-    public render() {}
+import { GameObject } from './Renderable';
+
+export class Castor extends GameObject {
 }
