@@ -1,5 +1,5 @@
 
-import { Sprite } from '../Templates/Sprite'; 
+import { Sprite } from '../Renderable/Sprite'; 
 import { Position, Size } from '../Helpers/Functions';
 const sunREF = 'assets/SUN.png'
 export class Sun extends Sprite {

@@ -1,12 +1,16 @@
 import { Position, Size, AbsolutePosition, pos, size } from "../Helpers/Functions";
-export class Sprite {
+import { IRender } from './Renderable';
+export class Sprite implements IRender{
   public startAt: Position;
   public objectRef: string;
 
   constructor(position: Position, objectRef: string) {
     this.startAt = position;
     this.objectRef = objectRef;
-  }
+    }
+    public render() {
+
+    }
 
   public draw(canvas: HTMLCanvasElement, dim: Size) {
     let img = new Image();

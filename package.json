@@ -2,7 +2,7 @@
   "name": "squirls",
   "version": "0.0.16",
   "description": "A Developer SDK to help create good performance animations and interactions in canvas",
-  "main": "./Engines/2D/exports.js",
+  "main": "./Engines/2D/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
