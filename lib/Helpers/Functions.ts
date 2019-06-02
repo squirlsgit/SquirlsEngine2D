@@ -1,5 +1,4 @@
-import * as simple from './DataTypes/Simple';
-
+import * as simple from './';
 // Calculates Position
 export const pos = function (canvas: HTMLCanvasElement, p: simple.Position) /*declares postiion*/  {
     return { x: canvas.width * p.x, y: canvas.height * p.y, y_cartesian: canvas.height * (1 - p.y) };
@@ -20,5 +19,5 @@ export const line = function (p1: simple.Position, p2: simple.Position) {
 
 }
 
-export *  from './DataTypes/Simple';
+
 

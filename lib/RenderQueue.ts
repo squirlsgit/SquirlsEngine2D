@@ -1,14 +1,14 @@
-import * as Objects from './Renderable';
+import * as Renderable from './Renderable';
 import SceneManager from './SceneManager';
-import * as datatypes from './Helpers/DataTypes/Simple';
-import { IRender } from './Renderable';
+import * as datatypes from './Helpers';
+
 //import { Prefab } from './Prefabs';
 
 
 export interface queue{
-    stack?: Stack<IRender>;
-    castors?: Stack<Objects.Castor>;
-    operators?: Stack<Objects.Operator>;
+    stack?: Stack<Renderable.IRender>;
+    castors?: Stack<Renderable.Castor>;
+    operators?: Stack<Renderable.Operator>;
 }
 export class RenderQueue {
     public scene: SceneManager = null;
@@ -16,9 +16,9 @@ export class RenderQueue {
     public queue: queue = {};
     constructor(scene: SceneManager) {
         this.scene = scene;
-        this.queue.stack = new Stack<IRender>(); 
-        this.queue.castors = new Stack<Objects.Castor>();
-        this.queue.operators = new Stack<Objects.Operator>();
+        this.queue.stack = new Stack<Renderable.GameObject>(); 
+        this.queue.castors = new Stack<Renderable.Castor>();
+        this.queue.operators = new Stack<Renderable.Operator>();
     }
     public render() {
         this.queue.stack.render();
@@ -29,7 +29,7 @@ export class RenderQueue {
 
 
 
-export type spell = (gameobject: Objects.GameObject) => void;
+export type spell = (gameobject: Renderable.GameObject) => void;
 
 export type cast = (poly: Array<datatypes.Position>, spell) => void;
 
@@ -37,44 +37,20 @@ export type pixelOperation = (pixel: Uint8Array, position: datatypes.Position) =
 export type project = (rays: Array<datatypes.Vector>, pixelOperation) => void;
 
 
-
-// Render Arguments is a way to update GameObjects without direct access to them.
-export interface RenderArgs {
-    newPos?: datatypes.Position;
-    newVelocity?: datatypes.Vector;
-    newSprite?: Sprite;
-    removeFrame?: number;
-    removeSprite?: Sprite;
-    newFrame?: number;
-    shiftFrame?: number;
-    newFrameVelocity?: number;
-    shiftDepth?: number;
-    newDepthVelocity?: number;
-    
-}
-
-export interface Sprite {
-    url: string;
-    width: number;
-    height: number;
-    scale: number;
-}
-
-
-export class Stack<T extends Objects.IRender >{
-    public Queue: Map<number, Map<T, RenderArgs>>;
+export class Stack<T extends Renderable.IRender >{
+    public Queue: Map<number, Map<T, Renderable.RenderArgs>>;
     constructor() {
-        this.Queue = new Map<number, Map<T, RenderArgs>>();
+        this.Queue = new Map<number, Map<T, Renderable.RenderArgs>>();
     }
 
     public forEach(callback: (T, RenderArgs) => void): void {
-        this.Queue.forEach((value: Map<T, RenderArgs>, depth: number) => {
-            value.forEach((args: RenderArgs, Object: T) => { callback(Object, args); });
+        this.Queue.forEach((value: Map<T, Renderable.RenderArgs>, depth: number) => {
+            value.forEach((args: Renderable.RenderArgs, Object: T) => { callback(Object, args); });
         });
     }
 
     public render(callback: (...args) => void = null) {
-        this.forEach((Object: T, args: RenderArgs) => {
+        this.forEach((Object: T, args: Renderable.RenderArgs) => {
             if (callback) {
                 callback(...Object.render(args));
             } else {
@@ -86,10 +62,10 @@ export class Stack<T extends Objects.IRender >{
     
 
     protected sort(q: Map<number, any>) {
-        return new Map([...q.entries()].sort());
+        return new Map([...q.entries()].sort((a, b) => a[0] - b[0]));
     }
 
-    public add(gameobject: T, depth: number, args: RenderArgs = null): boolean {
+    public add(gameobject: T, depth: number, args: Renderable.RenderArgs = null): boolean {
         try {
             if (!this.Queue.has(depth)) {
 
@@ -125,7 +101,7 @@ export class Stack<T extends Objects.IRender >{
         }
     }
 
-    public updateArgs(gameobject: T, args: RenderArgs): boolean {
+    public updateArgs(gameobject: T, args: Renderable.RenderArgs): boolean {
         try {
 
             let stack = this.Queue.entries();
@@ -145,7 +121,7 @@ export class Stack<T extends Objects.IRender >{
         }
     }
 
-    public getRender(gameobject: T): RenderArgs {
+    public getRender(gameobject: T): Renderable.RenderArgs {
         try {
 
             let stack = this.Queue.entries();

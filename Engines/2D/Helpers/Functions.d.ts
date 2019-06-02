@@ -1,4 +1,4 @@
-import * as simple from './DataTypes/Simple';
+import * as simple from './';
 export declare const pos: (canvas: HTMLCanvasElement, p: simple.Position) => {
     x: number;
     y: number;
@@ -10,4 +10,3 @@ export declare const size: (canvas: HTMLCanvasElement, size: simple.Size) => {
 };
 export declare const vector: (p1: simple.Position, p2: simple.Position) => void;
 export declare const line: (p1: simple.Position, p2: simple.Position) => void;
-export * from './DataTypes/Simple';

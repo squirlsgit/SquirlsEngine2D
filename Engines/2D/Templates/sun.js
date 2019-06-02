@@ -1,17 +1,17 @@
-import { Sprite } from '../Renderable/Sprite';
+import { Sprite } from '../GameObjects';
 const sunREF = 'assets/SUN.png';
 export class Sun extends Sprite {
-    constructor(position, size) {
-        super(position, sunREF);
+    constructor(scene, position, size) {
+        super(scene, position, sunREF);
         this.size = size;
     }
     interact(canvas, click) {
         let hitpos = { x: click.clientX / canvas.width, y: click.clientY / canvas.height };
         ;
-        if (hitpos.x >= this.startAt.x &&
-            hitpos.x <= this.startAt.x + this.size.width &&
-            hitpos.y >= this.startAt.y &&
-            hitpos.y <= this.startAt.y + this.size.height) {
+        if (hitpos.x >= this.position.x &&
+            hitpos.x <= this.position.x + this.size.width &&
+            hitpos.y >= this.position.y &&
+            hitpos.y <= this.position.y + this.size.height) {
             return hitpos;
         }
         else {
@@ -19,21 +19,20 @@ export class Sun extends Sprite {
         }
     }
     setNewPosition(position) {
-        this.lastPosition = { x: this.startAt.x, y: this.startAt.y };
-        this.startAt = position;
+        this.lastPosition = { x: this.position.x, y: this.position.y };
+        this.position = position;
     }
     setNewSize(size) {
         this.lastSize = { width: this.size.width, height: this.size.height };
         this.size = size;
     }
     setNewStock(ref) {
-        this.objectRef = ref;
+        this.spriteUrl = ref;
     }
-    drawSun(canvas) {
-        console.log("BOOTING UP THE SUN", this.objectRef);
-        let resetpos = this.lastPosition || this.startAt;
+    drawSun() {
+        let resetpos = this.lastPosition || this.position;
         let resetsize = this.lastSize || this.size;
-        this.undraw(canvas, resetpos, resetsize);
-        this.draw(canvas, this.size);
+        this.undraw(this.scene.window, resetpos, resetsize);
+        this.draw(this.scene.window, this.spriteUrl, this.size);
     }
 }

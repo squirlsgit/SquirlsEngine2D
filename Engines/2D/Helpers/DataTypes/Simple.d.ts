@@ -6,17 +6,9 @@ export interface Position {
     x: number;
     y: number;
 }
-export interface Vector {
-    start: Position;
-    alpha: number;
-}
+export declare type Angle = number;
 export interface AbsolutePosition {
     x: number;
     y: number;
     y_cartesian: number;
-}
-export interface Line {
-    start: Position;
-    m: number;
-    xfin: number;
 }

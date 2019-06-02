@@ -1,13 +1,14 @@
-import { Sprite } from '../Renderable/Sprite';
-import { Position, Size } from '../Helpers/Functions';
+import { Sprite } from '../GameObjects';
+import { Position, Size } from '../Helpers';
+import SceneManager from '../SceneManager';
 export declare class Sun extends Sprite {
     size: Size;
     lastPosition: Position;
     lastSize: Size;
-    constructor(position: Position, size: Size);
+    constructor(scene: SceneManager, position: Position, size: Size);
     interact(canvas: HTMLCanvasElement, click: MouseEvent): Position;
     setNewPosition(position: Position): void;
     setNewSize(size: Size): void;
     setNewStock(ref: string): void;
-    drawSun(canvas: HTMLCanvasElement): void;
+    drawSun(): void;
 }

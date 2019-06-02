@@ -1,13 +1,14 @@
 
-import { Sprite } from '../Renderable/Sprite'; 
-import { Position, Size } from '../Helpers/Functions';
+import { Sprite } from '../GameObjects'; 
+import { Position, Size } from '../Helpers';
+import SceneManager from '../SceneManager';
 const sunREF = 'assets/SUN.png'
 export class Sun extends Sprite {
   public size: Size;
   public lastPosition: Position;
   public lastSize: Size;
-  constructor(position: Position, size: Size) {
-    super(position, sunREF);
+  constructor(scene: SceneManager, position: Position, size: Size) {
+    super(scene, position, sunREF);
     this.size = size;
   }
   public interact(canvas: HTMLCanvasElement, click: MouseEvent): Position {
@@ -35,15 +36,14 @@ export class Sun extends Sprite {
     this.size = size;
   }
   setNewStock(ref: string) {
-    
-    this.objectRef = ref;
+
+      this.spriteUrl = ref;
   }
-  drawSun(canvas: HTMLCanvasElement) {
-    console.log("BOOTING UP THE SUN", this.objectRef);
-    let resetpos: Position = this.lastPosition || this.position;
-    let resetsize: Size = this.lastSize || this.size;
-    this.undraw(canvas, resetpos, resetsize); 
+    drawSun() {
+        let resetpos: Position = this.lastPosition || this.position;
+        let resetsize: Size = this.lastSize || this.size;
+        this.undraw(this.scene.window, resetpos, resetsize);
+        this.draw(this.scene.window, this.spriteUrl, this.size);
     
-    this.draw(canvas, this.size);
   }
 }

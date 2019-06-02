@@ -1,13 +1,14 @@
 import * as datatypes from '../Helpers/DataTypes/Simple';
-import { GameObject, IRender, Sprite } from '../Renderable';
-
+import { GameObject, IRender } from '../Renderable';
+import SceneManager from '../SceneManager';
 export class Prefab implements IRender{
-    public Position: datatypes.Position;
+    public scene: SceneManager;
+    public position: datatypes.Position;
     public gameObject: GameObject;
     public runnables: Array<IRun> = [];
 
     constructor(Position: datatypes.Position, gameObject: GameObject, runnables: Array<IRun>) {
-
+        
     }
 
     public render() {
@@ -20,9 +21,7 @@ export class Prefab implements IRender{
     }
 
     public setPosition(pos: datatypes.Position) {
-        if (this.gameObject instanceof Sprite) {
-            (this.gameObject as Sprite).position = pos;
-        }
+
         
     }
     

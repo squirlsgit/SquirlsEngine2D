@@ -1,9 +1,16 @@
 export class RenderQueue {
     constructor(scene) {
         this.scene = null;
+        this.queue = {};
         this.scene = scene;
-        this.queue['stack'] = new Stack();
-        this.queue['castors'] = new Stack();
+        this.queue.stack = new Stack();
+        this.queue.castors = new Stack();
+        this.queue.operators = new Stack();
+    }
+    render() {
+        this.queue.stack.render();
+        this.queue.castors.render();
+        this.queue.castors.render();
     }
 }
 export class Stack {
@@ -26,7 +33,7 @@ export class Stack {
         });
     }
     sort(q) {
-        return new Map([...q.entries()].sort());
+        return new Map([...q.entries()].sort((a, b) => a[0] - b[0]));
     }
     add(gameobject, depth, args = null) {
         try {
