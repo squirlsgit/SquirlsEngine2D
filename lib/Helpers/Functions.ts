@@ -1,4 +1,6 @@
 import * as simple from './';
+
+
 // Calculates Position
 export const pos = function (canvas: HTMLCanvasElement, p: simple.Position) /*declares postiion*/  {
     return { x: canvas.width * p.x, y: canvas.height * p.y, y_cartesian: canvas.height * (1 - p.y) };
@@ -15,9 +17,7 @@ export const vector = function (p1: simple.Position, p2: simple.Position) {
     const deltay = Math.abs(p2.y - p1.y);
 }
 
-export const line = function (p1: simple.Position, p2: simple.Position) {
-
-}
+export const line = function (p1: simple.Position, p2: simple.Position) {}
 
 
 

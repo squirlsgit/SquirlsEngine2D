@@ -5,8 +5,8 @@ export interface Size {
   height: number
 }
 export interface Position {
-  x: number,
-  y: number
+  x?: number,
+  y?: number
 }
 
 export type Angle = number;
