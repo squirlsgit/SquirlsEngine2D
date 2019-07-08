@@ -6,11 +6,8 @@ export interface ISprite {
     scale: number;
 }
 
-export interface Line<T extends simple.Position> {
-    0: T;
-    1: T;
-}
-
+export type Line<T extends simple.Position> = [T, T]; 
+export type Lines<T> = Array<Line<T>>;
 
 export interface Box<T extends simple.Position>{
     vertices: Map<T, T>;
@@ -31,12 +28,118 @@ export interface Vector extends simple.Position {
 export interface BoundaryBox extends Box<simple.Position> {}
 export interface RigidBox extends Box<Rigid> {}
 export interface ContactBox extends Box<Contact> { }
-export interface DirectionalBox extends Box<Vector> {}
+export interface DirectionalBox<T extends Vector | PolarVector> {
+    vertices: Array<T>;
+}
 
-export function Contact(
-    inbound: PolarVector | Vector | Line<simple.Position> | DirectionalBox,
-    surface: ContactBox | BoundaryBox | DirectionalBox
+export function contact(
+    inbound: PolarVector | Vector | Line<simple.Position> | DirectionalBox<Vector>,
+    surface: ContactBox | BoundaryBox | DirectionalBox<Vector>
 ) { };
+
+
+export class Contact {
+    public static IntersectionOnLine(projection: PolarVector | Vector | Line<simple.Position>, surface: Line<simple.Position>) {
+        if (projection['dir'] && typeof((projection as PolarVector).dir) == 'number') {
+            projection = polarToVector(projection as PolarVector);
+        }
+        /*
+         * 
+         * /
+         * end
+         * //
+        */
+    }
+}
+export function vectorIntersection(v1: Vector, v2: Vector): simple.Position  {
+
+}
+
+
+export function boxToLines<T extends simple.Position>(box: Box<T>): Lines<T> {
+    return [...box.vertices.entries()];
+}
+
+export interface bound {
+    min: simple.Position;
+    max: simple.Position;
+}
+
+export function getBoundFromLines<T extends simple.Position>(lines: Lines<T>) :bound {
+    let boundary: bound = {
+        min: {x: Infinity, y: Infinity},
+        max: {x: -1*Infinity, y: -1*Infinity}
+    };
+
+    lines.forEach((line: Line<T>) => {
+        line.forEach((position: simple.Position) => {
+            if (!getMin(boundary.min, position)) {
+                getMax(boundary.max, position);
+            }
+        });
+        
+    });
+
+    return boundary;
+}
+
+
+export function getBoundFromBox<T extends simple.Position>(box: Box<T>): bound {
+    let boundary: bound = {
+        min: { x: Infinity, y: Infinity },
+        max: { x: -1 * Infinity, y: -1 * Infinity }
+    };
+    let lines: Lines<T> = boxToLines(box);
+    lines.forEach((line: Line<T>) => {
+        line.forEach((position: simple.Position) => {
+            if (!getMin(boundary.min, position)) {
+                getMax(boundary.max, position);
+            }
+        });
+
+    });
+
+    return boundary;
+}
+
+
+
+
+
+
+
+export function getMin(pos1: simple.Position, pos2: simple.Position): boolean {
+    let isfullminimum: number = -1;
+    if (pos1.x > pos2.x) {
+        pos1.x = pos2.x;
+        isfullminimum++;
+    }
+    if (pos1.y > pos2.y) {
+        pos1.y = pos2.y;
+        isfullminimum++;
+    }
+
+    return isfullminimum == 1;
+    
+}
+
+export function getMax(pos1: simple.Position, pos2: simple.Position): boolean {
+    let isfullminimum: number = -1;
+    if (pos1.x < pos2.x) {
+        pos1.x = pos2.x;
+        isfullminimum++;
+    }
+    if (pos1.y < pos2.y) {
+        pos1.y = pos2.y;
+        isfullminimum++;
+    }
+
+    return isfullminimum == 1;
+}
+
+
+
+
 
 export type transform<T> = (T) => T;
 

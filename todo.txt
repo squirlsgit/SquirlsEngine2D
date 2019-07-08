@@ -1,0 +1,48 @@
+to do
+
+/scenemanager
+
+add gameobject
+add castor
+add projector
+
+map by behavior
+
+2 /behaviors
+all behaviors set up
+
+
+1 /contact functions
+vector -> box
+vector -> vector box
+vector -> line
+
+box -> box (is part of the box in the box)
+box -> circle (is part of the box in the circle)
+box -> line (intersection)
+
+/sprite
+
+frame sequences
+frame velocity
+animations
+
+render
+
+3 /GameObject
+
+render
+
+4 /castor
+Event Based Contact Detection
+
+5 /operator
+Direct Contact Based Detection - If operator deems it necessary.
+WEbworker connection.
+Polygon -> operation on pixels in polygon. 
+
+
+/// Calculation Notes
+
+if poly, or connected series of lines which run in a cycle and form a bounded shape:
+
